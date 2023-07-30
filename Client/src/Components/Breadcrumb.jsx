@@ -95,7 +95,7 @@ export default function CustomizedBreadcrumbs() {
   const navigate = useNavigate();
   function handleClick(event) {
     event.preventDefault();
-    navigate("/Home");
+    navigate("/");
   }
 
   return (

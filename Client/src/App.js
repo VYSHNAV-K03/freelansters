@@ -39,9 +39,10 @@ const App = () => {
       const res = await axios.get("http://localhost:5000/getdata", {
         withCredentials: true,
       });
+      console.log(res);
 
-      const data = await res.json();
-      // console.log(data);
+      const data = await res.data;
+      console.log(data.name);
       setUsername(data.name);
       setShow(true);
       dispatch({ type: "USER", payload: true });
@@ -62,7 +63,7 @@ const App = () => {
   };
 
   return (
-    !loading && (
+    loading && (
       <>
         <main>
           <Helmet>

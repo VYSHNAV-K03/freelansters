@@ -29,7 +29,7 @@ const Paths = () => {
     <Routes>
       <Route exact path="/" element={<App />}></Route>
       <Route exact path="/Logout" element={<Logout />}></Route>
-      <Route path="/Home" element={<App />}></Route>
+      {/* <Route path="/Home" element={<App />}></Route> */}
       <Route exact path="/Login1" element={<Login />}></Route>
       <Route path="/Home/Login1" element={<Login />}></Route>
       <Route path="/Home/Logout" element={<Logout />}></Route>

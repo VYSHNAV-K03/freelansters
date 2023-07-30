@@ -4,7 +4,7 @@ const cookie_parser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 
-dotenv.config({ path: "./config.env" });
+dotenv.config();
 
 const corsOptions = {
   origin: true,

@@ -36,37 +36,46 @@ router.post("/register", async (req, res) => {
     return res.status(422).json({ error: "Pls fill all the values properly!" });
   }
 
-  try {
-    const userExist = await User.findOne({ email: email }); // left one is database email and right one is input email!!
+  console.log(email);
 
-    if (userExist) {
-      return res.status(422).json({ error: "Email already Exist" });
-    }
-    // eslint-disable-next-line eqeqeq
-    else if (password != cpassword) {
-      return res.status(422).json({ error: "Password didn't match" });
-    } else {
-      const user = new User({
-        name,
-        email,
-        phone,
-        password,
-        cpassword,
-        special,
-        time,
-        price,
-        description,
-        img,
-        reviews,
-        stars,
-      });
-      // Hashing the password will occur here!
-      await user.save();
-      res.status(201).json({ message: "User registered successfully" });
-    }
-  } catch (err) {
-    console.log("🚀 ~ file: auth.js:47 ~ router.post ~ err", err);
-  }
+  User.findOne({ email: email })
+    .then((userExist) => {
+      console.log(userExist);
+      if (userExist) {
+        res.send({ status: 422, error: "Email already Exist" });
+      } else if (password != cpassword) {
+        res.send({ status: 422, error: "Password didn't match" });
+      } else {
+        const user = new User({
+          name,
+          email,
+          phone,
+          password,
+          cpassword,
+          special,
+          time,
+          price,
+          description,
+          img,
+          reviews,
+          stars,
+        });
+        // Hashing the password will occur here!
+
+        user
+          .save()
+          .then(() => {
+            res.send({ status: 201, message: "User registered successfully" });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.send({ status: 422, message: "User not registered" });
+          });
+      }
+    })
+    .catch((err) => {
+      res.send({ status: 422, error: "Something went wrong with database" });
+    });
 });
 
 // Login Route

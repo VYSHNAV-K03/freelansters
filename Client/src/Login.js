@@ -33,15 +33,15 @@ const Login = () => {
     e.preventDefault();
     const { name, email, phone, password, cpassword } = user;
     const res = await axios.post("http://localhost:5000/register", {
-      body: JSON.stringify({
-        name,
-        email,
-        phone,
-        password,
-        cpassword,
-      }),
+      name,
+      email,
+      phone,
+      password,
+      cpassword,
     });
-    const data = await res.json();
+
+    console.log(res.status);
+    const data = await res.data;
     if (data.status === 422 || !data) {
       window.alert("Invalid Registration");
       console.log("Invalid Registration");
